@@ -1,5 +1,5 @@
 //
-//  ForceDirectedGraph.swift
+//  ForceDirectedLayout.swift
 //
 //  Created by Ray Fix on 7/19/19.
 //  Copyright © 2019 Ray Fix. All rights reserved.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ForceDirectedGraph {
+struct ForceDirectedLayout {
   
   var viscosity = CGFloat(20)
   var friction = CGFloat(0.7)

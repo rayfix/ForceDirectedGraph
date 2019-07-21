@@ -1,6 +1,5 @@
 //
 //  GraphView.swift
-//  ForceDirectedGraph
 //
 //  Created by Ray Fix on 7/18/19.
 //  Copyright © 2019 Ray Fix. All rights reserved.
@@ -9,94 +8,20 @@
 import SwiftUI
 import Combine
 
-final class NodeViewModel: BindableObject {
-  var willChange = PassthroughSubject<NodeViewModel, Never>()
+final class GraphViewModel: BindableObject {
   
-  var id: String
-  var group: Int
-  var color: Color { Palette.color(for: group) }
-  var interactive = false {
-    willSet {
-      willChange.send(self)
-    }
-  }
-  var position: CGPoint {
-    willSet {
-      willChange.send(self)
-    }
-  }
-  var showIDs = false {
-    willSet {
-      willChange.send(self)
-    }
-  }
-  var velocity: CGPoint
-  
-  init(_ node: Node) {
-    id = node.id
-    group = node.group
-    position = randomScreenPoint()
-    velocity = .zero
-  }
-  
-  static let size: CGFloat = 20
-}
-
-struct NodeView: View, Identifiable {
-  @ObjectBinding var node: NodeViewModel
-  
-  var id: String {
-    node.id
-  }
-  
-  var body: some View {
-    let drag = DragGesture().onChanged { value in
-      self.node.interactive = true
-      self.node.position = value.location
-      self.node.velocity = .zero
-    }.onEnded { _ in
-      self.node.interactive = false
-    }
-    return ZStack {
-      Circle().size(width: NodeViewModel.size, height: NodeViewModel.size)
-        .offset(node.position-CGPoint(NodeViewModel.size/2, NodeViewModel.size/2))
-        .foregroundColor(node.color)
-      if node.showIDs {
-        Text(node.id).position(node.position)
-      }
-    }.gesture(drag)
-  }
-}
-
-struct LinkView: View, Identifiable {
-  @ObjectBinding var source: NodeViewModel
-  @ObjectBinding var target: NodeViewModel
-  
-  var id: String { "\(source.id)-\(target.id)" }
-  
-  var body: some View {
-    return Path { path in
-      path.move(to: source.position)
-      path.addLine(to: target.position)
-    }.strokedPath(.init(lineWidth: 4))
-      .foregroundColor(.gray)
-      .opacity(0.5)
-  }
-}
-
-final class GraphModel: BindableObject {
-  
-  var willChange = PassthroughSubject<GraphModel,Never>()
+  var willChange = PassthroughSubject<Void,Never>()
   
   init(_ graph: Graph) {
     // Build NodeViews
-    let nodeModels = graph.nodes.map { NodeViewModel($0) }
-    let nodeViews = nodeModels.map { NodeView(node: $0) }
+    let nodeViewModels = graph.nodes.map { NodeViewModel($0) }
+    let nodeViews = nodeViewModels.map { NodeView(viewModel: $0) }
     
     // Build Links
-    let nodeLookup = Dictionary(uniqueKeysWithValues: nodeViews.map { ($0.node.id, $0.node) } )
+    let nodeViewModelLookup = Dictionary(uniqueKeysWithValues: nodeViewModels.map { ($0.id, $0) } )
     let linkViews: [LinkView] = graph.links.compactMap {
-      guard let source = nodeLookup[$0.source], let target = nodeLookup[$0.target] else {
+      guard let source = nodeViewModelLookup[$0.source],
+        let target = nodeViewModelLookup[$0.target] else {
         return nil
       }
       return LinkView(source: source, target: target)
@@ -104,7 +29,6 @@ final class GraphModel: BindableObject {
     
     // Now some data structure for quicker simulation
     let nodeIndexLookup = Dictionary(uniqueKeysWithValues: graph.nodes.enumerated().map { ($0.1.id, $0.0) })
-    
     var linkIndices = Array(repeating: [Int](), count: graph.nodes.count)
     
     for link in graph.links {
@@ -123,7 +47,7 @@ final class GraphModel: BindableObject {
   
   func toggleNames() {
     for node in nodes {
-      node.node.showIDs.toggle()
+      node.viewModel.showIDs.toggle()
     }
   }
   
@@ -139,9 +63,9 @@ final class GraphModel: BindableObject {
     
     timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
       guard let self = self else { return }
+      self.willChange.send()
       //withAnimation(.linear) {
       self.simulation(steps: 5)
-      self.willChange.send(self)
       //}
     }
   }
@@ -158,28 +82,28 @@ final class GraphModel: BindableObject {
   }
     
   func simulation(steps: Int) {
-      let positions = nodes.map { $0.node.position }
-      let velocities = nodes.map { $0.node.velocity }
+      let positions = nodes.map { $0.viewModel.position }
+      let velocities = nodes.map { $0.viewModel.velocity }
 
-      let sim = ForceDirectedGraph()
+      let sim = ForceDirectedLayout()
       let result = sim.compute(positions: positions, velocities: velocities,
                                gravityCenter: screenCenter, linkIndices: linkIndices,
                                steps: steps)
 
       // Update the nodes without updates
       for (index, new) in zip(result.0, result.1).enumerated() {
-          guard !nodes[index].node.interactive else { continue }
-          nodes[index].node.position = new.0
-          nodes[index].node.velocity = new.1
+          guard !nodes[index].viewModel.interactive else { continue }
+          nodes[index].viewModel.position = new.0
+          nodes[index].viewModel.velocity = new.1
       }
   }
 }
 
 struct GraphView: View {
-  @ObjectBinding var model: GraphModel
+  @ObjectBinding var model: GraphViewModel
   
   init(_ graph: Graph) {
-    self.model = GraphModel(graph)
+    self.model = GraphViewModel(graph)
   }
   
   var body: some View {
