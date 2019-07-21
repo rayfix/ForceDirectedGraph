@@ -1,5 +1,5 @@
 //
-//  Controls.swift
+//  Navigation.swift
 //
 //  Created by Ray Fix on 7/19/19.
 //  Copyright © 2019 Ray Fix. All rights reserved.
@@ -15,12 +15,12 @@ struct GraphControl: View {
       HStack {
         Button("Toggle Names") {
           withAnimation {
-            self.graphView.model.toggleNames()
+            self.graphView.modelView.toggleNames()
           }
         }
         Spacer()
         Button("Toggle Simulation") {
-          self.graphView.model.toggleSimulation()
+          self.graphView.modelView.toggleSimulation()
         }
       }.padding()
     }

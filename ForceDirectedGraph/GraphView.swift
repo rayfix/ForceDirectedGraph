@@ -12,6 +12,8 @@ final class GraphViewModel: BindableObject {
   
   var willChange = PassthroughSubject<Void,Never>()
   
+  var layoutEngine: GraphLayout = ForceDirectedGraphLayout()
+  
   init(_ graph: Graph) {
     // Build NodeViews
     let nodeViewModels = graph.nodes.map { NodeViewModel($0) }
@@ -57,20 +59,28 @@ final class GraphViewModel: BindableObject {
   
   var timer: Timer?
   
-  func startSimulation() {
+  func startLayout() {
+    
+    guard layoutEngine.isIncremental else {
+      self.layout()
+      return
+    }
     
     guard timer == nil else { return }
     
+    // a little hack for now
+    layoutEngine = RandomGraphLayout()
+    layout()
+    layoutEngine = ForceDirectedGraphLayout()
+
     timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
       guard let self = self else { return }
       self.willChange.send()
-      //withAnimation(.linear) {
-      self.simulation(steps: 5)
-      //}
+      self.layout()
     }
   }
   
-  func stopSimulation() {
+  func stopLayout() {
     timer?.invalidate()
     timer = nil
   }
@@ -78,17 +88,15 @@ final class GraphViewModel: BindableObject {
   var isSimulating: Bool { timer != nil }
   
   func toggleSimulation() {
-    isSimulating ? stopSimulation() : startSimulation()
+    isSimulating ? stopLayout() : startLayout()
   }
     
-  func simulation(steps: Int) {
+  func layout() {
       let positions = nodes.map { $0.viewModel.position }
       let velocities = nodes.map { $0.viewModel.velocity }
 
-      let sim = ForceDirectedLayout()
-      let result = sim.compute(positions: positions, velocities: velocities,
-                               gravityCenter: screenCenter, linkIndices: linkIndices,
-                               steps: steps)
+      let result = layoutEngine.layout(canvasSize: UIScreen.main.bounds.size,
+        positions: positions, velocities: velocities, linkIndices: linkIndices)
 
       // Update the nodes without updates
       for (index, new) in zip(result.0, result.1).enumerated() {
@@ -100,16 +108,16 @@ final class GraphViewModel: BindableObject {
 }
 
 struct GraphView: View {
-  @ObjectBinding var model: GraphViewModel
+  @ObjectBinding var modelView: GraphViewModel
   
   init(_ graph: Graph) {
-    self.model = GraphViewModel(graph)
+    self.modelView = GraphViewModel(graph)
   }
   
-  var body: some View {
+  var body: some View { 
     let graph = ZStack {
-      ForEach(model.links) { $0 }
-      ForEach(model.nodes) { $0 }
+        ForEach(modelView.links) { $0 }
+        ForEach(modelView.nodes) { $0 }
     }
     return graph.drawingGroup()
   }

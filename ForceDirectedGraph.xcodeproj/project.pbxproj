@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D3B869122E3CC6000A8963F /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3B869022E3CC6000A8963F /* NodeView.swift */; };
 		5D3B869322E3CD1E00A8963F /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3B869222E3CD1E00A8963F /* LinkView.swift */; };
-		5D44B2BD22E230A700B10866 /* ForceDirectedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D44B2BC22E230A700B10866 /* ForceDirectedLayout.swift */; };
+		5D44B2BD22E230A700B10866 /* GraphLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D44B2BC22E230A700B10866 /* GraphLayout.swift */; };
 		5D44B2BF22E2326A00B10866 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D44B2BE22E2326A00B10866 /* Navigation.swift */; };
 		5DB8D6AF22E1825100CEED47 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB8D6AE22E1825100CEED47 /* AppDelegate.swift */; };
 		5DB8D6B122E1825100CEED47 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB8D6B022E1825100CEED47 /* SceneDelegate.swift */; };
@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		5D3B869022E3CC6000A8963F /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
 		5D3B869222E3CD1E00A8963F /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
-		5D44B2BC22E230A700B10866 /* ForceDirectedLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceDirectedLayout.swift; sourceTree = "<group>"; };
+		5D44B2BC22E230A700B10866 /* GraphLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphLayout.swift; sourceTree = "<group>"; };
 		5D44B2BE22E2326A00B10866 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		5DB8D6AB22E1825000CEED47 /* ForceDirectedGraph.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ForceDirectedGraph.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DB8D6AE22E1825100CEED47 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,7 +75,7 @@
 				5DB8D6AE22E1825100CEED47 /* AppDelegate.swift */,
 				5DB8D6B022E1825100CEED47 /* SceneDelegate.swift */,
 				5DB8D6C822E1833000CEED47 /* Graph.swift */,
-				5D44B2BC22E230A700B10866 /* ForceDirectedLayout.swift */,
+				5D44B2BC22E230A700B10866 /* GraphLayout.swift */,
 				5DB8D6B222E1825100CEED47 /* GraphView.swift */,
 				5D3B869222E3CD1E00A8963F /* LinkView.swift */,
 				5D3B869022E3CC6000A8963F /* NodeView.swift */,
@@ -177,7 +177,7 @@
 				5D3B869122E3CC6000A8963F /* NodeView.swift in Sources */,
 				5DB8D6B122E1825100CEED47 /* SceneDelegate.swift in Sources */,
 				5D44B2BF22E2326A00B10866 /* Navigation.swift in Sources */,
-				5D44B2BD22E230A700B10866 /* ForceDirectedLayout.swift in Sources */,
+				5D44B2BD22E230A700B10866 /* GraphLayout.swift in Sources */,
 				5DB8D6B322E1825100CEED47 /* GraphView.swift in Sources */,
 				5D3B869322E3CD1E00A8963F /* LinkView.swift in Sources */,
 				5DB8D6C922E1833000CEED47 /* Graph.swift in Sources */,

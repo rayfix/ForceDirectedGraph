@@ -1,6 +1,5 @@
 //
-//  Models.swift
-//  ForceDirectedGraph
+//  Graph.swift
 //
 //  Created by Ray Fix on 7/18/19.
 //  Copyright © 2019 Ray Fix. All rights reserved.

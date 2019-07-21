@@ -7,7 +7,42 @@
 
 import SwiftUI
 
-struct ForceDirectedLayout {
+
+/// A way to compute
+protocol GraphLayout {
+  
+  var isIncremental: Bool { get }
+  
+  func layout(canvasSize: CGSize,
+              positions p: [CGPoint],
+              velocities v: [CGPoint],
+              linkIndices: [[Int]]) -> ([CGPoint], [CGPoint])
+}
+
+
+/// A random layout
+struct RandomGraphLayout: GraphLayout {
+  var isIncremental: Bool { false }
+  
+  func layout(canvasSize: CGSize,
+              positions p: [CGPoint],
+              velocities v: [CGPoint],
+              linkIndices: [[Int]]) -> ([CGPoint], [CGPoint]) {
+    
+    let positions = p.map { _ in
+      CGPoint(CGFloat.random(in: 0..<canvasSize.width),
+              CGFloat.random(in: 0..<canvasSize.height))
+      
+    }
+    let velocity = v.map { _ in CGPoint.zero }
+    return (positions, velocity)
+  }
+}
+
+/// Implementation of Force-directed Graph Layout
+struct ForceDirectedGraphLayout: GraphLayout {
+  
+  var isIncremental: Bool { true }
   
   var viscosity = CGFloat(20)
   var friction = CGFloat(0.7)
@@ -16,6 +51,7 @@ struct ForceDirectedLayout {
   var springConstant = CGFloat(0.05)
   var chargeConstant = CGFloat(50)
   var gravityConstant = CGFloat(200)
+  var steps = 5
   
   private func computeSpringForces(source: CGPoint, targets: [CGPoint]) -> CGPoint {
     var accum = CGPoint.zero
@@ -23,7 +59,7 @@ struct ForceDirectedLayout {
     for target in targets {
       let delta = target - source
       let length = delta.distance
-      let unit = delta / length
+      let unit = delta / (length + 0.00001)
       accum += unit * (length-springLength) * springConstant
     }
     
@@ -41,7 +77,7 @@ struct ForceDirectedLayout {
     for (offset, other) in others.enumerated() {
       guard offset != skipIndex else { continue }
       let diff = reference - other
-      accum += diff / diff.distanceSquared * chargeConstant
+      accum += diff / (diff.distanceSquared + 0.00000001) * chargeConstant
     }
     return accum
   }
@@ -52,8 +88,12 @@ struct ForceDirectedLayout {
     return dist > gravityRejectionDistanceSquared  ? diff / dist * gravityConstant : .zero
   }
   
-  func compute(positions p: [CGPoint], velocities v: [CGPoint], gravityCenter: CGPoint,
-               linkIndices: [[Int]], steps: Int) -> ([CGPoint], [CGPoint]) {
+  func layout(canvasSize: CGSize,
+              positions p: [CGPoint],
+              velocities v: [CGPoint],
+              linkIndices: [[Int]]) -> ([CGPoint], [CGPoint]) {
+    
+    let gravityCenter = CGPoint(canvasSize.width * 0.5, canvasSize.height * 0.5)
     
     var positions = p
     var velocities = v

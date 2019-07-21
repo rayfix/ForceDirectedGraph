@@ -1,6 +1,5 @@
 //
 //  AppDelegate.swift
-//  ForceDirectedGraph
 //
 //  Created by Ray Fix on 7/18/19.
 //  Copyright © 2019 Ray Fix. All rights reserved.

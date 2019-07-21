@@ -36,7 +36,7 @@ final class NodeViewModel: BindableObject {
   init(_ node: Node) {
     id = node.id
     group = node.group
-    position = randomScreenPoint()
+    position = .zero
     velocity = .zero
   }
   
