@@ -20,6 +20,28 @@ protocol GraphLayout {
 }
 
 
+struct CircularGraphLayout: GraphLayout {
+  var isIncremental: Bool { false }
+  
+  func layout(canvasSize: CGSize, positions p: [CGPoint], velocities v: [CGPoint],
+              linkIndices: [[Int]]) -> ([CGPoint], [CGPoint]) {
+    
+    let radius = min(canvasSize.width, canvasSize.height) * 0.2
+    let center = CGPoint(canvasSize.width * 0.5, canvasSize.height * 0.5)
+    let delta = 2 * CGFloat.pi / CGFloat(p.count)
+    
+    var angle = CGFloat(0)
+    let positions = p.map { (_: CGPoint) -> CGPoint in
+      let newPos = center + CGPoint(cos(angle), sin(angle)) * radius
+      angle += delta
+      return newPos
+    }
+    let velocity = v.map { _ in CGPoint.zero }
+    
+    return (positions,velocity)
+  }
+}
+
 /// A random layout
 struct RandomGraphLayout: GraphLayout {
   var isIncremental: Bool { false }
@@ -93,7 +115,6 @@ struct ForceDirectedGraphLayout: GraphLayout {
               velocities v: [CGPoint],
               linkIndices: [[Int]]) -> ([CGPoint], [CGPoint]) {
     
-    let gravityCenter = CGPoint(canvasSize.width * 0.5, canvasSize.height * 0.5)
     
     var positions = p
     var velocities = v
@@ -104,9 +125,11 @@ struct ForceDirectedGraphLayout: GraphLayout {
       for (offset, position) in positions.enumerated() {
         forces[offset] += computeRepulsion(at: position, from: positions, skipIndex: offset)
         forces[offset] += computeSpringForces(source: position, targets: linkIndices[offset].map { positions[$0] })
-        forces[offset] += computeCenteringForce(at: position, center: gravityCenter)
       }
       
+      // Centering force
+      let center = CGPoint(canvasSize.width * 0.5, canvasSize.height * 0.5) - (positions.computeAveragePoint() ?? .zero)
+        
       // integrate the forces to get velocities
       for (index, v) in velocities.enumerated() {
         let nv = v + forces[index]
@@ -116,7 +139,7 @@ struct ForceDirectedGraphLayout: GraphLayout {
       
       // integrate the velocities to get positions
       for index in positions.indices {
-        positions[index] += velocities[index]
+        positions[index] += velocities[index] + center
       }
     }
     
