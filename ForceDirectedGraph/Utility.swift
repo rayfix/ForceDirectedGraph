@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 /// A palette of colors for visualizations
 struct Palette {
   static func color(for index: Int) -> Color {
@@ -72,3 +71,27 @@ extension CGPoint {
   }
 }
 
+extension Sequence where Element == CGPoint {
+  func computeBoundingBox() -> CGRect? {
+    let xs = map { $0.x }
+    let ys = map { $0.y }
+    guard let xmin = xs.min(), let xmax = xs.max(),
+      let ymin = ys.min(), let ymax = ys.max() else {
+        return nil
+    }
+    return CGRect(x: xmin, y: ymin, width: xmax-xmin, height: ymax-ymin)
+  }
+}
+
+extension Collection where Element == CGPoint {
+  func computeAveragePoint() -> CGPoint? {
+    guard count != 0 else { return nil }
+    return reduce(.zero, +) / CGFloat(count)
+  }
+}
+
+extension CGRect {
+  @inlinable var center: CGPoint {
+    return CGPoint(midX, midY)
+  }
+}

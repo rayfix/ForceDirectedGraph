@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D01266622E83F62001E6A06 /* QuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D01266522E83F62001E6A06 /* QuadTree.swift */; };
 		5D3B869122E3CC6000A8963F /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3B869022E3CC6000A8963F /* NodeView.swift */; };
 		5D3B869322E3CD1E00A8963F /* LinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3B869222E3CD1E00A8963F /* LinkView.swift */; };
 		5D44B2BD22E230A700B10866 /* GraphLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D44B2BC22E230A700B10866 /* GraphLayout.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D01266522E83F62001E6A06 /* QuadTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadTree.swift; sourceTree = "<group>"; };
 		5D3B869022E3CC6000A8963F /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
 		5D3B869222E3CD1E00A8963F /* LinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkView.swift; sourceTree = "<group>"; };
 		5D44B2BC22E230A700B10866 /* GraphLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphLayout.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				5DB8D6B022E1825100CEED47 /* SceneDelegate.swift */,
 				5DB8D6C822E1833000CEED47 /* Graph.swift */,
 				5D44B2BC22E230A700B10866 /* GraphLayout.swift */,
+				5D01266522E83F62001E6A06 /* QuadTree.swift */,
 				5DB8D6B222E1825100CEED47 /* GraphView.swift */,
 				5D3B869222E3CD1E00A8963F /* LinkView.swift */,
 				5D3B869022E3CC6000A8963F /* NodeView.swift */,
@@ -174,6 +177,7 @@
 			files = (
 				5DB8D6C722E182BC00CEED47 /* Utility.swift in Sources */,
 				5DB8D6AF22E1825100CEED47 /* AppDelegate.swift in Sources */,
+				5D01266622E83F62001E6A06 /* QuadTree.swift in Sources */,
 				5D3B869122E3CC6000A8963F /* NodeView.swift in Sources */,
 				5DB8D6B122E1825100CEED47 /* SceneDelegate.swift in Sources */,
 				5D44B2BF22E2326A00B10866 /* Navigation.swift in Sources */,
