@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 struct LinkView: View, Identifiable {
-  @ObjectBinding var source: NodeViewModel
-  @ObjectBinding var target: NodeViewModel
+  @ObservedObject var source: NodeViewModel
+  @ObservedObject var target: NodeViewModel
   
   var id: String { "\(source.id)-\(target.id)" }
   

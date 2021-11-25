@@ -10,28 +10,15 @@ import Foundation
 import SwiftUI
 import Combine
 
-final class NodeViewModel: BindableObject {
-  var willChange = PassthroughSubject<Void, Never>()
+final class NodeViewModel: ObservableObject {
   
   var id: String
   var group: Int
   var color: Color { Palette.color(for: group) }
-  var interactive = false {
-    willSet {
-      willChange.send()
-    }
-  }
-  var position: CGPoint {
-    willSet {
-      willChange.send()
-    }
-  }
-  var showIDs = false {
-    willSet {
-      willChange.send()
-    }
-  }
-  var velocity: CGPoint
+  @Published var interactive = false
+  @Published var position: CGPoint
+  @Published var showIDs = false
+  @Published var velocity: CGPoint
   
   init(_ node: Node) {
     id = node.id
@@ -44,7 +31,7 @@ final class NodeViewModel: BindableObject {
 }
 
 struct NodeView: View, Identifiable {
-  @ObjectBinding var viewModel: NodeViewModel
+  @ObservedObject var viewModel: NodeViewModel
   
   var id: String {
     viewModel.id

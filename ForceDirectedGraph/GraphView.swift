@@ -8,9 +8,7 @@
 import SwiftUI
 import Combine
 
-final class GraphViewModel: BindableObject {
-  
-  var willChange = PassthroughSubject<Void,Never>()
+final class GraphViewModel: ObservableObject {
   
   var layoutEngine: GraphLayout = ForceDirectedGraphLayout()
   
@@ -75,7 +73,7 @@ final class GraphViewModel: BindableObject {
 
     timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
       guard let self = self else { return }
-      self.willChange.send()
+      self.objectWillChange.send()
       self.layout()
     }
   }
@@ -108,18 +106,17 @@ final class GraphViewModel: BindableObject {
 }
 
 struct GraphView: View {
-  @ObjectBinding var modelView: GraphViewModel
+  @ObservedObject var modelView: GraphViewModel
   
   init(_ graph: Graph) {
     self.modelView = GraphViewModel(graph)
   }
   
   var body: some View { 
-    let graph = ZStack {
+    ZStack {
         ForEach(modelView.links) { $0 }
         ForEach(modelView.nodes) { $0 }
-    }
-    return graph.drawingGroup()
+    }.drawingGroup()
   }
 }
 
