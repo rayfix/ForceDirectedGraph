@@ -1,6 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "F2CF7ADE-ACBF-4953-BE38-981DCD1E7002"
+   uuid = "ACF3ADC9-59FF-4B56-804D-FE81B69C5FB7"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C94F7ECB-83FB-4DAA-BFA4-72A9975E62A7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/Navigation.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "GraphControl"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "C94F7ECB-83FB-4DAA-BFA4-72A9975E62A7 - 17ab4185cdc4f712"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of ForceDirectedGraph.GraphControl.viewModel : ForceDirectedGraph.GraphViewModel"
+                  moduleName = "ForceDirectedGraph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rayfix/Projects/afos/ForceDirectedGraph/Shared/Navigation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "C94F7ECB-83FB-4DAA-BFA4-72A9975E62A7 - f1b74a5780b8c0d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ForceDirectedGraph.GraphControl.viewModel.getter : ForceDirectedGraph.GraphViewModel"
+                  moduleName = "ForceDirectedGraph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rayfix/Projects/afos/ForceDirectedGraph/Shared/Navigation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "C94F7ECB-83FB-4DAA-BFA4-72A9975E62A7 - db2deef539e6aceb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ForceDirectedGraph.GraphControl.viewModel.setter : ForceDirectedGraph.GraphViewModel"
+                  moduleName = "ForceDirectedGraph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rayfix/Projects/afos/ForceDirectedGraph/Shared/Navigation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "56">
+               </Location>
+               <Location
+                  uuid = "C94F7ECB-83FB-4DAA-BFA4-72A9975E62A7 - 72e84b05f1511175"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ForceDirectedGraph.GraphControl.viewModel.modify : ForceDirectedGraph.GraphViewModel with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "ForceDirectedGraph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rayfix/Projects/afos/ForceDirectedGraph/Shared/Navigation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "C94F7ECB-83FB-4DAA-BFA4-72A9975E62A7 - f1cf81b631ede8a1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ForceDirectedGraph.GraphControl.$viewModel.getter : SwiftUI.ObservedObject&lt;ForceDirectedGraph.GraphViewModel&gt;.Wrapper"
+                  moduleName = "ForceDirectedGraph"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rayfix/Projects/afos/ForceDirectedGraph/Shared/Navigation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11"
+                  offsetFromSymbolStart = "96">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DB75C32A-EADA-4DDE-9344-0C8A6745A517"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/GraphLayout.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "update(graph:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EE2F99DE-5730-46BE-BCED-AE8D6B991C20"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/GraphLayout.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "update(graph:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

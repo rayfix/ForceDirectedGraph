@@ -2,7 +2,7 @@
 //  Utility.swift
 //
 //  Created by Ray Fix on 7/18/19.
-//  Copyright © 2019 Ray Fix. All rights reserved.
+//  Copyright © 2019-2021 Ray Fix. All rights reserved.
 //
 
 import Foundation
@@ -16,17 +16,9 @@ struct Palette {
   private static let colors: [Color] = [.red, .green, .blue, .orange, .yellow, .purple, .pink, .black]
 }
 
-func randomScreenPoint() -> CGPoint {
-  return CGPoint(x: Int.random(in: 0..<Int(UIScreen.main.bounds.width)),
-                 y: Int.random(in: 0..<Int(UIScreen.main.bounds.height)))
-}
-
-let screenCenter = CGPoint(UIScreen.main.bounds.size.width,
-                           UIScreen.main.bounds.size.height) * 0.5
-
 extension CGPoint {
   @inlinable
-  init(_ x: CGFloat, _ y: CGFloat) {
+  init(_ x: Double, _ y: Double) {
     self.init(x: x, y: y)
   }
   
@@ -52,23 +44,19 @@ extension CGPoint {
   
   @inlinable
   static func *(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
-    return CGPoint(lhs.x*rhs, lhs.y*rhs)
+    CGPoint(lhs.x*rhs, lhs.y*rhs)
   }
   
   @inlinable
   static func /(lhs: CGPoint, rhs: CGFloat) -> CGPoint {
-    return CGPoint(lhs.x/rhs, lhs.y/rhs)
+    CGPoint(lhs.x/rhs, lhs.y/rhs)
   }
   
   @inlinable
-  var distanceSquared: CGFloat {
-    return x*x + y*y
-  }
+  var distanceSquared: CGFloat { x*x + y*y }
   
   @inlinable
-  var distance: CGFloat {
-    return distanceSquared.squareRoot()
-  }
+  var distance: CGFloat { distanceSquared.squareRoot() }
 }
 
 extension Sequence where Element == CGPoint {
@@ -90,8 +78,3 @@ extension Collection where Element == CGPoint {
   }
 }
 
-extension CGRect {
-  @inlinable var center: CGPoint {
-    return CGPoint(midX, midY)
-  }
-}
