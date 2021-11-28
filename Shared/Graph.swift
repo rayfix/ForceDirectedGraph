@@ -52,9 +52,7 @@ extension Graph {
   }
   
   init(jsonData: Data) throws {
-    let decoder = JSONDecoder()
-    let decoded = try decoder.decode(Self.self, from: jsonData)
-    self.init(nodes: decoded.nodes, links: decoded.links)
+    self = try JSONDecoder().decode(Self.self, from: jsonData)
   }
   
   static func load(filename: String, layout: GraphLayout? = nil, bundle: Bundle = Bundle.main) throws -> Self {

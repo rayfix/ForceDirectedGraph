@@ -5,7 +5,6 @@
 //  Copyright © 2019-2021 Ray Fix. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
 /// A palette of colors for visualizations
@@ -59,20 +58,8 @@ extension CGPoint {
   var distance: CGFloat { distanceSquared.squareRoot() }
 }
 
-extension Sequence where Element == CGPoint {
-  func computeBoundingBox() -> CGRect? {
-    let xs = map { $0.x }
-    let ys = map { $0.y }
-    guard let xmin = xs.min(), let xmax = xs.max(),
-      let ymin = ys.min(), let ymax = ys.max() else {
-        return nil
-    }
-    return CGRect(x: xmin, y: ymin, width: xmax-xmin, height: ymax-ymin)
-  }
-}
-
 extension Collection where Element == CGPoint {
-  func computeAveragePoint() -> CGPoint? {
+  func meanPoint() -> CGPoint? {
     guard count != 0 else { return nil }
     return reduce(.zero, +) / CGFloat(count)
   }

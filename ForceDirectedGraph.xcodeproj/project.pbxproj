@@ -70,9 +70,9 @@
 				5D8BA8A92751595400BB843F /* LinksView.swift */,
 				5D8BA8B22751598200BB843F /* NodeView.swift */,
 				5D8BA8AC2751596E00BB843F /* GraphControl.swift */,
+				5D8BA8B82751599700BB843F /* Utility.swift */,
 				5D8BA8B52751598F00BB843F /* simple.json */,
 				5D8BA8AF2751597700BB843F /* miserables.json */,
-				5D8BA8B82751599700BB843F /* Utility.swift */,
 				5D8BA884275158F500BB843F /* Assets.xcassets */,
 			);
 			path = Shared;

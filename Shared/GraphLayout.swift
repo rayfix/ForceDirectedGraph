@@ -5,7 +5,8 @@
 //  Copyright © 2019-2021 Ray Fix. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
+import CoreGraphics.CGAffineTransform
 
 /// A way to compute
 protocol GraphLayout {
@@ -41,7 +42,6 @@ struct ForceDirectedGraphLayout: GraphLayout {
   let springLength = 0.15
   let springConstant = 40.0
   let chargeConstant = 0.05875
-  let gravityConstant = 0.025
   
   private func computeSpringForces(source: CGPoint, targets: [CGPoint]) -> CGPoint {
     var accum = CGPoint.zero
@@ -70,12 +70,6 @@ struct ForceDirectedGraphLayout: GraphLayout {
     return accum
   }
   
-  private func computeCenteringForce(at: CGPoint, center: CGPoint) -> CGPoint {
-    let diff = center-at
-    let dist = diff.distanceSquared
-    return diff / dist * gravityConstant
-  }
-  
   func update(graph: inout Graph) {
     
     var positions = graph.nodes.map { $0.position }
@@ -100,7 +94,7 @@ struct ForceDirectedGraphLayout: GraphLayout {
     }
     
     // Centering force
-    let centering = CGPoint(0.5, 0.5) - (positions.computeAveragePoint() ?? .zero)
+    let centering = CGPoint(0.5, 0.5) - (positions.meanPoint() ?? .zero)
     
     // integrate the forces to get velocities
     for (index, velocity) in velocities.enumerated() {
