@@ -15,7 +15,7 @@ struct GraphControl: View {
       HStack {
         Picker("Type", selection: $viewModel.layout) {
           Text("Circular").tag(Layout.circular)
-          Text("Force Directed").tag(Layout.forceDirected)
+          Text("Force").tag(Layout.forceDirected)
         }.pickerStyle(.segmented)
         Toggle(isOn: $viewModel.showIDs) {
           Text("Names")

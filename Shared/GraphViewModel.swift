@@ -21,13 +21,28 @@ enum Layout: Int, Hashable {
   }
 }
 
-
 final class GraphViewModel: ObservableObject {
   
+  enum Constant {
+    static let nodeSize = 20.0
+  }
+  
   @Published var graph: Graph
-  @Published var isSimulating = true
   @Published var showIDs = false
-  @Published var layout = Layout.circular {
+  
+  var canvasSize: CGSize = .zero {
+    didSet {
+      let minDimension = min(canvasSize.width, canvasSize.height)
+      
+      modelToView = CGAffineTransform.identity
+        .translatedBy(x: (canvasSize.width - minDimension) * 0.5,
+                      y: (canvasSize.height - minDimension) * 0.5)
+        .scaledBy(x: minDimension, y: minDimension)
+      viewToModel = modelToView.inverted()
+    }
+  }
+
+  var layout = Layout.circular {
     didSet {
       layoutEngine = layout.makeEngine()
     }
@@ -38,16 +53,31 @@ final class GraphViewModel: ObservableObject {
     self.graph = graph
   }
   
-  func modelToView(size: CGSize) -> CGAffineTransform {
-    let minDimension = min(size.width, size.height)
+  private(set) var viewToModel: CGAffineTransform = .identity
+  private(set) var modelToView: CGAffineTransform = .identity
+  
+  func modelRect(node: Node) -> CGRect {
+    let inset = -Constant.nodeSize / (modelToView.a * 2)
+    return CGRect(origin: node.position, size: .zero)
+      .insetBy(dx: inset, dy: inset)
+  }
     
-    return CGAffineTransform.identity
-      .translatedBy(x: (size.width - minDimension) * 0.5,
-                    y: (size.height - minDimension) * 0.5)
-      .scaledBy(x: minDimension, y: minDimension)
-    
+  func hitTest(point: CGPoint) -> Int? {
+    let modelPoint = point.applying(viewToModel)
+    return graph.nodes.firstIndex { modelRect(node: $0).contains(modelPoint) }
   }
   
+  func dragNode(at index: Int, location: CGPoint) {
+    let point = location.applying(viewToModel)
+    graph.nodes[index].position = point
+    graph.nodes[index].velocity = .zero
+    graph.nodes[index].isInteractive = true
+  }
+  
+  func stopDraggingNode(at index: Int) {
+    graph.nodes[index].isInteractive = false
+  }
+
   func linkSegments() -> [(CGPoint, CGPoint)] {
     let lookup = Dictionary(uniqueKeysWithValues:
                               graph.nodes.map { ($0.id, $0.position) })
@@ -61,7 +91,6 @@ final class GraphViewModel: ObservableObject {
   }
   
   func updateSimulation() {
-    guard isSimulating else { return }
     layoutEngine.update(graph: &graph)
   }
 }

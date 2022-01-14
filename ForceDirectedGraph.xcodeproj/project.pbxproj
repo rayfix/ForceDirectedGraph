@@ -13,10 +13,8 @@
 		5D8BA8A12751593500BB843F /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8A02751593500BB843F /* Graph.swift */; };
 		5D8BA8A42751593F00BB843F /* GraphLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8A32751593F00BB843F /* GraphLayout.swift */; };
 		5D8BA8A72751594A00BB843F /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8A62751594A00BB843F /* GraphView.swift */; };
-		5D8BA8AA2751595400BB843F /* LinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8A92751595400BB843F /* LinksView.swift */; };
 		5D8BA8AD2751596E00BB843F /* GraphControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8AC2751596E00BB843F /* GraphControl.swift */; };
 		5D8BA8B02751597700BB843F /* miserables.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D8BA8AF2751597700BB843F /* miserables.json */; };
-		5D8BA8B32751598200BB843F /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8B22751598200BB843F /* NodeView.swift */; };
 		5D8BA8B62751598F00BB843F /* simple.json in Resources */ = {isa = PBXBuildFile; fileRef = 5D8BA8B52751598F00BB843F /* simple.json */; };
 		5D8BA8B92751599700BB843F /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8B82751599700BB843F /* Utility.swift */; };
 		5D8BA8BC2751DC0600BB843F /* GraphViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8BA8BB2751DC0600BB843F /* GraphViewModel.swift */; };
@@ -30,10 +28,8 @@
 		5D8BA8A02751593500BB843F /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		5D8BA8A32751593F00BB843F /* GraphLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphLayout.swift; sourceTree = "<group>"; };
 		5D8BA8A62751594A00BB843F /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
-		5D8BA8A92751595400BB843F /* LinksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinksView.swift; sourceTree = "<group>"; };
 		5D8BA8AC2751596E00BB843F /* GraphControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphControl.swift; sourceTree = "<group>"; };
 		5D8BA8AF2751597700BB843F /* miserables.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = miserables.json; sourceTree = "<group>"; };
-		5D8BA8B22751598200BB843F /* NodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
 		5D8BA8B52751598F00BB843F /* simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple.json; sourceTree = "<group>"; };
 		5D8BA8B82751599700BB843F /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		5D8BA8BB2751DC0600BB843F /* GraphViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewModel.swift; sourceTree = "<group>"; };
@@ -67,8 +63,6 @@
 				5D8BA8A32751593F00BB843F /* GraphLayout.swift */,
 				5D8BA8A62751594A00BB843F /* GraphView.swift */,
 				5D8BA8BB2751DC0600BB843F /* GraphViewModel.swift */,
-				5D8BA8A92751595400BB843F /* LinksView.swift */,
-				5D8BA8B22751598200BB843F /* NodeView.swift */,
 				5D8BA8AC2751596E00BB843F /* GraphControl.swift */,
 				5D8BA8B82751599700BB843F /* Utility.swift */,
 				5D8BA8B52751598F00BB843F /* simple.json */,
@@ -160,12 +154,10 @@
 				5D8BA8A72751594A00BB843F /* GraphView.swift in Sources */,
 				5D8BA8A42751593F00BB843F /* GraphLayout.swift in Sources */,
 				5D8BA8B92751599700BB843F /* Utility.swift in Sources */,
-				5D8BA8B32751598200BB843F /* NodeView.swift in Sources */,
 				5D8BA8AD2751596E00BB843F /* GraphControl.swift in Sources */,
 				5D8BA8BC2751DC0600BB843F /* GraphViewModel.swift in Sources */,
 				5D8BA8A12751593500BB843F /* Graph.swift in Sources */,
 				5D8BA894275158F500BB843F /* ContentView.swift in Sources */,
-				5D8BA8AA2751595400BB843F /* LinksView.swift in Sources */,
 				5D8BA892275158F500BB843F /* ForceDirectedGraphApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

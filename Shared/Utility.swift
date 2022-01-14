@@ -12,7 +12,7 @@ struct Palette {
   static func color(for index: Int) -> Color {
     return colors[index % colors.count]
   }
-  private static let colors: [Color] = [.red, .green, .blue, .orange, .yellow, .purple, .pink, .black]
+  private static let colors: [Color] = [.red, .green, .cyan, .orange, .yellow, .purple, .pink, .black]
 }
 
 extension CGPoint {
