@@ -25,6 +25,8 @@ final class GraphViewModel: ObservableObject {
   
   enum Constant {
     static let nodeSize = 20.0
+    static let fontSize = 12.0
+    static let linkWidth = 2.0
   }
   
   @Published var graph: Graph
@@ -55,6 +57,10 @@ final class GraphViewModel: ObservableObject {
   
   private(set) var viewToModel: CGAffineTransform = .identity
   private(set) var modelToView: CGAffineTransform = .identity
+  
+  var linkWidthModel: Double {
+    Constant.linkWidth * viewToModel.a
+  }
   
   func modelRect(node: Node) -> CGRect {
     let inset = -Constant.nodeSize / (modelToView.a * 2)

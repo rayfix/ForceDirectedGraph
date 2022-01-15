@@ -4,6 +4,10 @@ struct GraphView: View {
   
   @ObservedObject var viewModel: GraphViewModel
   
+  enum Constant {
+    static let fontSize = 12.0
+  }
+  
   let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
   
   @State var isDragging = false
@@ -32,10 +36,7 @@ struct GraphView: View {
   var body: some View {
     Canvas { context, size in
       viewModel.canvasSize = size
-      let modelToView = viewModel.modelToView
-      let scale = 1/modelToView.a
-      
-      context.transform = modelToView
+      context.transform = viewModel.modelToView
       
       let links = Path { drawing in
         for link in viewModel.linkSegments() {
@@ -44,8 +45,8 @@ struct GraphView: View {
         }
       }
 
-      let lineWidth = 2 * scale
-      context.stroke(links, with: .color(white: 0.9), lineWidth: lineWidth)
+      context.stroke(links, with: .color(white: 0.9),
+                     lineWidth: viewModel.linkWidthModel)
       
       for node in viewModel.graph.nodes {
         let ellipse = viewModel.modelRect(node: node)
@@ -54,10 +55,10 @@ struct GraphView: View {
       
       if viewModel.showIDs {
         context.transform = .identity
-        let font = Font.system(size: 12, weight: .bold)
+        let font = Font.system(size: Constant.fontSize, weight: .bold)
         for node in viewModel.graph.nodes {
           context.draw(Text(node.id).font(font),
-                       at: node.position.applying(modelToView))
+                       at: node.position.applying(viewModel.modelToView))
         }
       }
     }.gesture(drag)
