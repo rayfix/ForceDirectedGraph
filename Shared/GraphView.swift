@@ -8,8 +8,6 @@ struct GraphView: View {
     static let fontSize = 12.0
   }
   
-  let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
-  
   @State var isDragging = false
   @State var draggingIndex: Int?
   
@@ -34,40 +32,37 @@ struct GraphView: View {
   }
   
   var body: some View {
-    Canvas { context, size in
-      viewModel.canvasSize = size
-      context.transform = viewModel.modelToView
-      
-      let links = Path { drawing in
-        for link in viewModel.linkSegments() {
-          drawing.move(to: link.0)
-          drawing.addLine(to: link.1)
+    TimelineView(.animation) { timeline in
+      Canvas { context, size in
+        viewModel.canvasSize = size
+        context.transform = viewModel.modelToView
+        
+        let links = Path { drawing in
+          for link in viewModel.linkSegments() {
+            drawing.move(to: link.0)
+            drawing.addLine(to: link.1)
+          }
         }
-      }
-
-      context.stroke(links, with: .color(white: 0.9),
-                     lineWidth: viewModel.linkWidthModel)
-      
-      for node in viewModel.graph.nodes {
-        let ellipse = viewModel.modelRect(node: node)
-        context.fill(Path(ellipseIn: ellipse), with: .color(Palette.color(for: node.group)))
-      }
-      
-      if viewModel.showIDs {
-        context.transform = .identity
-        let font = Font.system(size: Constant.fontSize, weight: .bold)
+        
+        context.stroke(links, with: .color(white: 0.9),
+                       lineWidth: viewModel.linkWidthModel)
+        
         for node in viewModel.graph.nodes {
-          context.draw(Text(node.id).font(font),
-                       at: node.position.applying(viewModel.modelToView))
+          let ellipse = viewModel.modelRect(node: node)
+          context.fill(Path(ellipseIn: ellipse), with: .color(Palette.color(for: node.group)))
         }
-      }
-    }.gesture(drag)
-      .onReceive(timer) { _ in
-        viewModel.updateSimulation()
-      }
-      .onDisappear {
-        timer.upstream.connect().cancel()
-      }
+        
+        if viewModel.showIDs {
+          context.transform = .identity
+          let font = Font.system(size: Constant.fontSize, weight: .bold)
+          for node in viewModel.graph.nodes {
+            context.draw(Text(node.id).font(font),
+                         at: node.position.applying(viewModel.modelToView))
+          }
+        }
+      }.gesture(drag) // Comment either this line or the line below out and it works.
+      let _ = viewModel.updateSimulation()
+    }
   }
 }
 
