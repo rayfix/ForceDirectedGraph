@@ -41,6 +41,7 @@ final class GraphViewModel: ObservableObject {
                       y: (canvasSize.height - minDimension) * 0.5)
         .scaledBy(x: minDimension, y: minDimension)
       viewToModel = modelToView.inverted()
+      
     }
   }
 
@@ -58,32 +59,12 @@ final class GraphViewModel: ObservableObject {
   private(set) var viewToModel: CGAffineTransform = .identity
   private(set) var modelToView: CGAffineTransform = .identity
   
-  var linkWidthModel: Double {
-    Constant.linkWidth * viewToModel.a
-  }
-  
   func modelRect(node: Node) -> CGRect {
     let inset = -Constant.nodeSize / (modelToView.a * 2)
     return CGRect(origin: node.position, size: .zero)
       .insetBy(dx: inset, dy: inset)
   }
-    
-  func hitTest(point: CGPoint) -> Int? {
-    let modelPoint = point.applying(viewToModel)
-    return graph.nodes.firstIndex { modelRect(node: $0).contains(modelPoint) }
-  }
   
-  func dragNode(at index: Int, location: CGPoint) {
-    let point = location.applying(viewToModel)
-    graph.nodes[index].position = point
-    graph.nodes[index].velocity = .zero
-    graph.nodes[index].isInteractive = true
-  }
-  
-  func stopDraggingNode(at index: Int) {
-    graph.nodes[index].isInteractive = false
-  }
-
   func linkSegments() -> [(CGPoint, CGPoint)] {
     let lookup = Dictionary(uniqueKeysWithValues:
                               graph.nodes.map { ($0.id, $0.position) })
