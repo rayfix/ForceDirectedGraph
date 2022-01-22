@@ -10,6 +10,7 @@ struct GraphView: View {
   
   @State var isDragging = false
   @State var draggingIndex: Int?
+  @State var previous: Date?
   
   var drag: some Gesture {
     let tap = DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -35,6 +36,8 @@ struct GraphView: View {
     TimelineView(.animation) { timeline in
       Canvas { context, size in
         viewModel.canvasSize = size
+        let _ = viewModel.updateSimulation()
+
         context.transform = viewModel.modelToView
         
         let links = Path { drawing in
@@ -61,7 +64,6 @@ struct GraphView: View {
           }
         }
       }.gesture(drag) // Comment either this line or the line below out and it works.
-      let _ = viewModel.updateSimulation()
     }
   }
 }
