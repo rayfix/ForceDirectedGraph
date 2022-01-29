@@ -56,6 +56,10 @@ final class GraphViewModel: ObservableObject {
     self.graph = graph
   }
   
+  var linkWidthModel: Double {
+    Constant.linkWidth * viewToModel.a
+  }
+  
   private(set) var viewToModel: CGAffineTransform = .identity
   private(set) var modelToView: CGAffineTransform = .identity
   
@@ -75,6 +79,22 @@ final class GraphViewModel: ObservableObject {
             }
       return (source, target)
     }
+  }
+  
+  func hitTest(location: CGPoint) -> Int? {
+    let modelPoint = location.applying(viewToModel)
+    return graph.nodes.firstIndex { modelRect(node: $0).contains(modelPoint) }
+  }
+  
+  func dragNode(at index: Int, location: CGPoint) {
+    let  point = location.applying(viewToModel)
+    graph.nodes[index].position = point
+    graph.nodes[index].velocity = .zero
+    graph.nodes[index].isInteractive = true
+  }
+  
+  func stopDraggingNode(at index: Int) {
+    graph.nodes[index].isInteractive = false
   }
   
   func updateSimulation() {
