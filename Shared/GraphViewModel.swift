@@ -29,7 +29,7 @@ final class GraphViewModel: ObservableObject {
     static let linkWidth = 2.0
   }
   
-  @Published var graph: Graph
+  var graph: Graph
   @Published var showIDs = false
   
   var canvasSize: CGSize = .zero {
