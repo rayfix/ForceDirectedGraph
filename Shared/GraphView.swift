@@ -36,7 +36,7 @@ struct GraphView: View {
     TimelineView(.animation) { timeline in
       Canvas { context, size in
         viewModel.canvasSize = size
-        let _ = viewModel.updateSimulation()
+        viewModel.updateSimulation()
 
         context.transform = viewModel.modelToView
         
